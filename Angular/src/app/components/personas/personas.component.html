@@ -1,0 +1,180 @@
+<body>
+  <div id="wrapper">
+    <h1>Listado de personas</h1>
+
+    <table id="keywords" cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th><span>Nombre</span></th>
+          <th><span>Email</span></th>
+          <th><span>Teléfono</span></th>
+          <th><span>Edad</span></th>
+          <th><span>Opciones</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let info of getPersonas">
+          <td>{{ info.nombre }} {{ info.apellido }}</td>
+          <td>{{ info.email }}</td>
+          <td>{{ info.telefono }}</td>
+          <td>{{ info.edad }}</td>
+          <td>
+            <a (click)="verPersona(info.idUsuario)"
+              ><button class="btn btn-outline-primary">
+                <i class="fa-solid fa-pen"></i></button
+            ></a>
+            <button
+              (click)="borrarPersona(info.idUsuario)"
+              class="btn btn-outline-danger"
+            >
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    type="button"
+    class="btn btn-primary"
+  >
+    Agregar persona
+  </button>
+
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nueva persona</h5>
+        </div>
+        <div class="modal-body">
+          <form #agregar="ngForm">
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <span
+                    class="badge rounded-pill bg-danger"
+                    *ngIf="!nombre.valid && nombre.touched"
+                    >Campo requerido</span
+                  >
+                  <input
+                    name="nombre"
+                    #nombre="ngModel"
+                    [(ngModel)]="postPersona.nombre"
+                    type="text"
+                    id="form3Example1"
+                    class="form-control"
+                    required="true"
+                  />
+                  <label class="form-label" for="form3Example1">Nombre</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <span
+                    class="badge rounded-pill bg-danger"
+                    *ngIf="!apellido.valid && apellido.touched"
+                    >Campo requerido</span
+                  >
+                  <input
+                    name="apellido"
+                    #apellido="ngModel"
+                    [(ngModel)]="postPersona.apellido"
+                    type="text"
+                    id="form3Example2"
+                    class="form-control"
+                    required="true"
+                  />
+                  <label class="form-label" for="form3Example2">Apellido</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <span
+                class="badge rounded-pill bg-danger"
+                *ngIf="!email.valid && email.touched"
+                >Campo requerido</span
+              >
+              <input
+                name="email"
+                #email="ngModel"
+                [(ngModel)]="postPersona.email"
+                type="email"
+                id="form3Example3"
+                class="form-control"
+                required="true"
+              />
+              <label class="form-label" for="form3Example3">Email</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <span
+                class="badge rounded-pill bg-danger"
+                *ngIf="!telefono.valid && telefono.touched"
+                >Campo requerido</span
+              >
+              <input
+                name="telefono"
+                #telefono="ngModel"
+                [(ngModel)]="postPersona.telefono"
+                type="number"
+                id="form3Example4"
+                class="form-control"
+                required="true"
+                minlength="8"
+                maxlength="8"
+                pattern="^[0-9]+"
+              />
+              <label class="form-label" for="form3Example4">Teléfono</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <span
+                class="badge rounded-pill bg-danger"
+                *ngIf="!edad.valid && edad.touched"
+                >Campo requerido</span
+              >
+              <input
+                name="edad"
+                #edad="ngModel"
+                [(ngModel)]="postPersona.edad"
+                type="number"
+                id="form3Example4"
+                class="form-control"
+                required="true"
+              />
+              <label class="form-label" for="form3Example4">Edad</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            [disabled]="!agregar.form.valid"
+            (click)="nuevaPersona(agregar)"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
