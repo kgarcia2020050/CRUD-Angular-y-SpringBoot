@@ -32,9 +32,9 @@ public class Controlador {
     }
 
     @GetMapping("/persona/{id}")
-    public ResponseEntity<Persona> empleadoId(@PathVariable Long id){
+    public Persona empleadoId(@PathVariable Long id){
         Persona persona=repositorio.findById(id).orElseThrow(() -> new ResourceNotFoundException("No se encuentra al empleado con el ID " + id));
-        return ResponseEntity.ok(persona);
+        return persona;
     }
 
     @PutMapping("/actualizar/{id}")
